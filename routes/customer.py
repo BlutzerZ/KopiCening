@@ -1,5 +1,6 @@
 from app import app, db
-from models import Product as ProductModels, ProductColor as ProductColorModels, ProductSize as ProductSizeModels, ProductStock as ProductStockModels, Transaction as OrderModels, TransactionItem as OrderItemModels
+from models.product import Product as ProductModels
+from models.transactions import Transaction as OrderModels, TransactionItem as OrderItemModels
 from flask import render_template, request, session, redirect, abort, url_for, render_template
 import time, os, random
 from pytz import timezone
@@ -10,34 +11,33 @@ from werkzeug.utils import secure_filename
 # Product routes ===============================
 
 @app.route("/")
-def show_all_product():
+def home():
     products = ProductModels.query.all()
 
-    return render_template('product.html', products=products)
+    return render_template('ecommerce/index.html', products=products)
 
 # CART ROUTES ========
 
-@app.route("/keranjang")
+@app.route("/cart", methods=['GET', 'POST'])
 def cart():
-    items = session.get('keranjang', [])
-    return render_template('keranjang.html', items=items)
-
-@app.route("/add-to-cart", methods=["POST"])
-def add_to_cart():
-    cart = session.get('keranjang', [])
-    cart.append({
-        "id": request.form['fid'],
-        "img": request.form['fimg'],
-        "title": request.form['ftitle'],
-        "warna": request.form['fwarna'], # add me
-        "size": request.form['fsize'], # add me
-        "jumlah": request.form['fjumlah'],
-        "harga": request.form['fharga'],
-        "total": int(request.form['fjumlah']) * int(request.form['fharga']),
-    })
-    session['keranjang'] = cart
-    print(session['keranjang'])
-    return redirect(url_for('show_all_product'))
+    if request.method == "POST":
+        cart = session.get('keranjang', [])
+        cart.append({
+            "id": request.form['fid'],
+            "img": request.form['fimg'],
+            "title": request.form['ftitle'],
+            "warna": request.form['fwarna'], # add me
+            "size": request.form['fsize'], # add me
+            "jumlah": request.form['fjumlah'],
+            "harga": request.form['fharga'],
+            "total": int(request.form['fjumlah']) * int(request.form['fharga']),
+        })
+        session['keranjang'] = cart
+        print(session['keranjang'])
+        return redirect(url_for('cart'))
+    else:
+        items = session.get('keranjang', [])
+        return render_template('ecommerce/cart.html', items=items)
 
 @app.route("/delete-cart-all/")
 def delete_cart_all():
@@ -63,7 +63,7 @@ def delete_cart(item_id):
 def checkout():
     if request.method == "POST":
         total = int(request.form['ftotal'])
-        return render_template('co.html', total=total)
+        return render_template('ecommerce/checkout.html', total=total)
 
     else:
         return "<p>Nothing here</p>"
