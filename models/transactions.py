@@ -7,6 +7,7 @@ class Transaction(db.Model):
     address = db.Column(db.String(200))
     phone = db.Column(db.Integer)
     total = db.Column(db.Integer)
+    paidStatus = db.Column(db.String(3))
     createdAt = db.Column(db.Integer, default=time.time()) # unix time format
     transactionItem = db.relationship('TransactionItem', backref='transaction')
 

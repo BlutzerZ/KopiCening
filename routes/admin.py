@@ -336,7 +336,7 @@ def dashboard_kas():
         total+= kasFlow['amount']
 
 
-    return  render_template('dashboard/kas.html', saldoAwal=saldoAwal, kasFlow=kasFlows, total=total) 
+    return  render_template('dashboard/kas.html', judul="Laporan Arus Kas", saldoAwal=saldoAwal, kasFlow=kasFlows, total=total) 
 
 
 @app.route("/dashboard/piutang")
@@ -351,7 +351,7 @@ def dashboard_piutang():
 
     total = saldoAwal['amount']
 
-    return  render_template('dashboard/kas.html', saldoAwal=saldoAwal, total=total) 
+    return  render_template('dashboard/kas.html', judul="Piutang", saldoAwal=saldoAwal, total=total) 
 
 @app.route("/dashboard/inventory", methods=["GET", "POST"])
 def dashboard_inventory():

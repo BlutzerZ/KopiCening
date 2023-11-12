@@ -71,6 +71,8 @@ def checkout_success():
         faddress = request.form['faddress']
         fphone = request.form['fphone']
         ftotal = request.form['ftotal']
+        ftotal = request.form['ftotal']
+        fpaid = request.form['paid']
         while True:
             randomID = random.randint(0, 99999999)
             dummyCheck = db.session.query(OrderModels).filter(OrderModels.id == randomID).first()
@@ -80,7 +82,8 @@ def checkout_success():
                     name=fname,
                     address=faddress,
                     phone=fphone,
-                    total=ftotal
+                    total=ftotal,
+                    paidStatus=fpaid,
                 )
                 db.session.add(db_item)
                 db.session.commit()
