@@ -1,0 +1,103 @@
+{% extends 'dashboard/layout/base.html' %}
+
+{% block content %}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="py-3 mb-4"><span class="text-muted fw-light">Dashboard /</span> Transaction</h4>
+
+    <!-- Basic Bootstrap Table -->
+    <div class="card">
+        <h5 class="card-header">Table Basic</h5>
+        <div class="table-responsive text-nowrap">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tanggal</th>
+                        <th>Buyer</th>
+                        <th>Address</th>
+                        <th>Phone</th>
+                        <th>Total</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                    {% for t in transactions %}
+                    <tr>
+                        <td>{{ t.id }}</td>
+                        <td>{{ t.createdAt }}</td>
+                        <td>{{ t.name }}</td>
+                        <td>{{ t.address }}</td>
+                        <td>{{ t.phone }}</td>
+                        <td>Rp. {{ t.total }}</td>
+                        <td>
+                            <div class="col-lg-4 col-md-6">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#basicModal{{ t.id }}">
+                                    Details
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="basicModal{{ t.id }}" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel1">Detail Transaksi dari {{
+                                                    t.name }}
+                                                </h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <!-- Basic Bootstrap Table -->
+                                                <div class="card">
+                                                    <h5 class="card-header">Product yang dibeli</h5>
+                                                    <div class="table-responsive text-nowrap">
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Product</th>
+                                                                    <th>Harga</th>
+                                                                    <th>Jumlah</th>
+                                                                    <th>Total</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="table-border-bottom-0">
+                                                                {% for ti in t.transactionItem %}
+                                                                <tr>
+                                                                    <td>{{ ti.title }}</td>
+                                                                    <td>{{ ti.price }}</td>
+                                                                    <td>{{ ti.jumlah }}</td>
+                                                                    <td>{{ ti.total }}</td>
+                                                                </tr>
+                                                                {% endfor %}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-outline-secondary"
+                                                    data-bs-dismiss="modal">
+                                                    Close
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+        </div>
+        </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+    </div>
+</div>
+<!--/ Basic Bootstrap Table -->
+</div>
+<!--/ Bordered Table -->
+
+{% endblock %}

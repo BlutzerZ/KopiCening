@@ -6,6 +6,8 @@ class Product(db.Model):
     image = db.Column(db.String(200))
     title = db.Column(db.String(100))
     desc = db.Column(db.String(300))
-    price = db.Column(db.String(100))
+    stock = db.Column(db.Integer)
+    priceBase = db.Column(db.Integer)
+    price = db.Column(db.Integer)
 
     

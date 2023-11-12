@@ -1,0 +1,97 @@
+{% extends 'dashboard/layout/base.html' %}
+
+{% block content %}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="py-3 mb-4"><span class="text-muted fw-light">Dashboard /</span> Neraca</h4>
+    <!-- Bordered Table -->
+    <div class="card">
+        <h5 class="card-header">Neraca</h5>
+        <div class="card-body">
+            <div class="table-responsive text-nowrap">
+                <table class="table table-borderless">
+                    <tbody>
+                        <tr>
+                            <td class="fw-bold">Aktiva</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Kas</td>
+                            <td>Rp. {{ details['kas'] }}</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Piutang</td>
+                            <td>Rp. {{ details['piutang'] }}</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Persediaan Barang Dagang</td>
+                            <td>Rp. {{ details['piutang'] }}</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Perlengkapan</td>
+                            <td>Rp. {{ details['perlengkapan'] }}</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Peralatan</td>
+                            <td>Rp. {{ details['peralatan'] }}</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Aset Lain</td>
+                            <td>Rp. {{ details['asetLain'] }}</td>
+                            <td></td>
+
+                        </tr>
+                        <tr>
+                            <td>Jumlah Aktiva</td>
+                            <td></td>
+                            <td>Rp. {{ details['jumlahAktiva'] }}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="fw-bold">Pasiva</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Modal</td>
+                            <td>Rp. {{ details['modal'] }}</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Hutang</td>
+                            <td>Rp. {{ details['hutang'] }}</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Pendapatan</td>
+                            <td>Rp. {{ details['pendapatan'] }}</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Profit sekarang</td>
+                            <td>Rp. {{ details['profit'] }}</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Jumlah Pasiva</td>
+                            <td></td>
+                            <td>Rp. {{ details['jumlahPasiva'] }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -13,8 +13,6 @@ class Transaction(db.Model):
 class TransactionItem(db.Model):
     id = db.Column(db.Integer, primary_key=True, index=True)
     title = db.Column(db.String(100))
-    color = db.Column(db.String(100))
-    size = db.Column(db.String(100))
     price = db.Column(db.Integer)
     jumlah = db.Column(db.Integer)
     total = db.Column(db.Integer, default=price*jumlah)

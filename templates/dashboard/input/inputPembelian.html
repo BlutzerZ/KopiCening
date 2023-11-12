@@ -1,0 +1,90 @@
+{% extends 'dashboard/layout/base.html' %}
+
+{% block content %}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="py-3 mb-4"><span class="text-muted fw-light">Input /</span> {{ details['pageName'] }}</h4>
+    <div class="col-12">
+        <div class="card mb-4">
+            <form action="" method="POST">
+                <h5 class="card-header">Form Controls</h5>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Tanggal</label>
+                        <input name="date" type="date" class="form-control" id="exampleFormControlInput1" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlSelect1" class="form-label">Jenis Pembelian</label>
+                        <select name="akunid" class="form-select" id="exampleFormControlSelect1"
+                            aria-label="Default select example">
+                            <option selected>Open this select menu</option>
+                            {% for akun in details['akuns'] %}
+                            <option value="{{ akun.id }}">{{ akun.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlReadOnlyInput1" class="form-label">Produk</label>
+                        <input name="keterangan" class="form-control" type="text" id="exampleFormControlReadOnlyInput1"
+                            placeholder="Nama Produk" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlReadOnlyInput1" class="form-label">Qty</label>
+                        <input name="qty" class="form-control" type="text" id="exampleFormControlReadOnlyInput1"
+                            placeholder="0" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlReadOnlyInput1" class="form-label">Harga</label>
+                        <input name="price" class="form-control" type="text" id="exampleFormControlReadOnlyInput1"
+                            placeholder="0" />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Bordered Table -->
+    <div class="card">
+        <h5 class="card-header">Bordered Table</h5>
+        <div class="card-body">
+            <div class="table-responsive text-nowrap">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Tanggal</th>
+                            <th>Jenis Pembelian</th>
+                            <th>Produk</th>
+                            <th>Qty</th>
+                            <th>Harga</th>
+                            <th>Total Harga</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for transaction in details['transactions'] %}
+                        <tr>
+                            <td>{{ transaction.createdAt }}</td>
+                            <td>{{ transaction.akunName }}</td>
+                            <td>{{ transaction.keterangan }}</td>
+                            <td>{{ transaction.qty }}</td>
+                            <td>{{ transaction.price }}</td>
+                            <td>{{ transaction.amount }}</td>
+                            <td>
+                                <div class="dropdown">
+                                    <form action="/dashboard/input-pembelian/delete" method="POST">
+                                        <input name="id" type="hidden" value="{{ transaction.id }}">
+                                        <input type="submit" value="Delete">
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!--/ Bordered Table -->
+</div>
+
+{% endblock %}

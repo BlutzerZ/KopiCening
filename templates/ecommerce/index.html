@@ -9,44 +9,10 @@
 
 				<div class="col-md-8 col-sm-12 text-center ftco-animate">
 					<span class="subheading">Welcome</span>
-					<h1 class="mb-4">The Best Coffee Testing Experience</h1>
+					<h1 class="mb-4">Kopi Pilihan Yang Terbaik</h1>
 					<p class="mb-4 mb-md-5">A small river named Duden flows by their place and supplies it with the
 						necessary regelialia.</p>
-					<p><a href="#" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">View Menu</a></p>
-				</div>
-
-			</div>
-		</div>
-	</div>
-
-	<div class="slider-item" style="background-image: url({{ url_for('static', filename='images/bg_2.jpg') }});">
-		<div class="overlay"></div>
-		<div class="container">
-			<div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
-
-				<div class="col-md-8 col-sm-12 text-center ftco-animate">
-					<span class="subheading">Welcome</span>
-					<h1 class="mb-4">Amazing Taste &amp; Beautiful Place</h1>
-					<p class="mb-4 mb-md-5">A small river named Duden flows by their place and supplies it with the
-						necessary regelialia.</p>
-					<p><a href="#" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">View Menu</a></p>
-				</div>
-
-			</div>
-		</div>
-	</div>
-
-	<div class="slider-item" style="background-image: url({{ url_for('static', filename='images/bg_3.jpg') }});">
-		<div class="overlay"></div>
-		<div class="container">
-			<div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
-
-				<div class="col-md-8 col-sm-12 text-center ftco-animate">
-					<span class="subheading">Welcome</span>
-					<h1 class="mb-4">Creamy Hot and Ready to Serve</h1>
-					<p class="mb-4 mb-md-5">A small river named Duden flows by their place and supplies it with the
-						necessary regelialia.</p>
-					<p><a href="#" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">View Menu</a></p>
+					<p><a href="#product" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">View Menu</a></p>
 				</div>
 
 			</div>
@@ -69,8 +35,9 @@
 					<div class="col-md-4 d-flex ftco-animate">
 						<div class="icon"><span class="icon-my_location"></span></div>
 						<div class="text">
-							<h3>198 West 21th Street</h3>
-							<p> 203 Fake St. Mountain View, San Francisco, California, USA</p>
+							<h3>Jalan Pramuka 129</h3>
+							<p>Gentan Kidul, Kauman, Boja, Kec. Boja, Kabupaten Kendal, Jawa Tengah
+								5138</p>
 						</div>
 					</div>
 					<div class="col-md-4 d-flex ftco-animate">
@@ -97,12 +64,13 @@
 				<h2 class="mb-4">Our Story</h2>
 			</div>
 			<div>
-				<p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it
-					would have been rewritten a thousand times and everything that was left from its origin would be
-					the word "and" and the Little Blind Text should turn around and return to its own, safe country.
-					But nothing the copy said could convince her and so it didn’t take long until a few insidious
-					Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their
-					agency, where they abused her for their.</p>
+				<p>Di keheningan perkebunan di lereng gunung yang megah, Kopi Cening Jaya tumbuh dengan sejuta kisah.
+					Setiap butir biji kopi adalah bagian dari petualangan panjang dari tanah subur hingga menciptakan
+					kelezatan di setiap cangkir. Di bawah langit yang dipenuhi dengan aroma kopi yang memikat, kami,
+					dengan penuh kasih, meramu setiap biji dengan sentuhan tangan penuh keahlian. Kopi Cening Jaya bukan
+					sekadar minuman, tapi persembahan dari bumi yang memberi, menyatu dalam setiap hela nafas senja.
+					Selamat menikmati detik-detik ajaib yang kami simpan dalam setiap serbuk kopi ini, cerita alam yang
+					terukir dalam setiap tegukan.</p>
 			</div>
 		</div>
 	</div>
@@ -164,40 +132,32 @@
 			</div>
 		</div>
 		<div class="row justify-content-center">
+			{% for p in products %}
+			{% if p.stock > 1 %}
 			<div class="col-md-3">
-				<div class="menu-entry">
-					<a href="#" class="img" style="background-image: url(images/menu-1.jpg);"></a>
-					<div class="text text-center pt-4">
-						<h3><a href="#">Coffee Capuccino</a></h3>
-						<p>A small river named Duden flows by their place and supplies</p>
-						<p class="price"><span>$5.90</span></p>
-						<p><a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
+				<form action="/cart" method="post">
+					<input type="hidden" name="fid" value="{{ p.id }}">
+					<input type="hidden" name="fimg" value="{{ p.image }}">
+					<input type="hidden" name="ftitle" value="{{ p.title }}">
+					<input type="hidden" name="fjumlah" value="1">
+					<input type="hidden" name="fharga" value="{{ p.price }}">
+
+
+					<div class="menu-entry">
+						<a href="#" class="img"
+							style="background-image: url({{ url_for('static', filename='uploads/'+ p.image) }});"></a>
+						<div class="text text-center pt-4">
+							<h3><a href="#">{{ p.title }}</a></h3>
+							<p>A small river named Duden flows by their place and supplies</p>
+							<p class="price"><span>Rp. {{ p.price }}</span></p>
+							<p><input type="submit" class="btn btn-primary btn-outline-primary" value="Add to Cart"></a>
+							</p>
+						</div>
 					</div>
-				</div>
+				</form>
 			</div>
-			<div class="col-md-3">
-				<div class="menu-entry">
-					<a href="#" class="img" style="background-image: url(images/menu-2.jpg);"></a>
-					<div class="text text-center pt-4">
-						<h3><a href="#">Coffee Capuccino</a></h3>
-						<p>A small river named Duden flows by their place and supplies</p>
-						<p class="price"><span>$5.90</span></p>
-						<p><a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="menu-entry">
-					<a href="#" class="img"
-						style="background-image: url({{ url_for('static', filename='images/menu-4.jpg') }});"></a>
-					<div class="text text-center pt-4">
-						<h3><a href="#">Coffee Capuccino</a></h3>
-						<p>A small river named Duden flows by their place and supplies</p>
-						<p class="price"><span>$5.90</span></p>
-						<p><a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
-					</div>
-				</div>
-			</div>
+			{% endif %}
+			{% endfor %}
 		</div>
 	</div>
 </section>

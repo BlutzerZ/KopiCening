@@ -1,0 +1,188 @@
+{% extends 'dashboard/layout/base.html' %}
+
+{% block content %}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="py-3 mb-4"><span class="text-muted fw-light">Dashboard /</span> Profit</h4>
+
+    <!-- Bordered Table -->
+    <div class="card">
+        <h5 class="card-header">Laporan Laba Rugi</h5>
+        <div class="card-body">
+            <div class="table-responsive text-nowrap">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td class="fw-bold">Penjualan</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Penjualan</td>
+                            <td>Rp. {{ details['penjualan'] }}</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Retur Penjualan</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Potongan Penjualan</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Penjualan Bersih</td>
+                            <td></td>
+                            <td></td>
+                            <td>Rp. {{ details['penjualanBersih'] }}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="fw-bold">Harga Pokok Penjualan</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Persediaan Barang Dagang Awal</td>
+                            <td></td>
+                            <td>Rp. {{ details['persediaanBarangDagang'] }}</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Pembelian</td>
+                            <td>Rp. {{ details['pembelian'] }}</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Retur Pembelian</td>
+                            <td>Rp. {{ details['returPembelian'] }}</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Potongan Pembelian</td>
+                            <td>Rp. {{ details['potonganPembelian'] }}</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Harga Pokok Pembelian</td>
+                            <td></td>
+                            <td>Rp. {{ details['hargaPokokPembelian'] }}</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Barang Tersedia Untuk Dijual</td>
+                            <td></td>
+                            <td>Rp. {{ details['barangPersediaanUntukDijual'] }}</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Persediaan Barang Dagang Akhir</td>
+                            <td></td>
+                            <td>Rp. {{ details['persediaanBarangDagangAkhir'] }}</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Harga Pokok Penjualan</td>
+                            <td></td>
+                            <td></td>
+                            <td>Rp. {{ details['hargaPokokPenjualan'] }}</td>
+                        </tr>
+                        <tr>
+                            <td>Laba/Rugi Kotor Penjualan</td>
+                            <td></td>
+                            <td></td>
+                            <td>Rp. {{ details['LabaRugiKotorPenjualan'] }}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="fw-bold">Biaya Usaha</td>
+                            <td></td>
+                            <td></td>
+                            <td>Rp. {{ details['biayaUsaha'] }}</td>
+                        </tr>
+                        <tr>
+                            <td class="fw-bold">Laba/Rugi Bersih Sebelum Pajak</td>
+                            <td></td>
+                            <td></td>
+                            <td>Rp. {{ details['labaRugiSebelumPajak'] }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <!-- Bordered Table -->
+    <div class="card">
+        <h5 class="card-header">Laporan Perubahan Ekuintas</h5>
+        <div class="card-body">
+            <div class="table-responsive text-nowrap">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td class="fw-bold">Modal Awal</td>
+                        </tr>
+                        <tr>
+                            <td>Awal</td>
+                            <td>Rp. {{ details['modalAwal'] }}</td>
+                        </tr>
+                        <tr>
+                            <td>Penyesuaian</td>
+                            <td>Rp. {{ details['labaRugiSebelumPajak'] }}</td>
+                        </tr>
+                        <tr>
+                            <td>Akhir</td>
+                            <td>Rp. {{ details['total'] }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <h5 class="card-header">Penyesuaian Modal Awal</h5>
+        <div class="card-body">
+            <div class="table-responsive text-nowrap">
+                <table class="table table-bordered">
+                    <thead>
+                        <th>Keterangan</th>
+                        <th>Nilai</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Laba/Rugi Usaha</td>
+                            <td>Rp. {{ details['labaRugiSebelumPajak'] }}</td>
+                        </tr>
+                        <tr>
+                            <td>Prive</td>
+                            <td>Rp. 0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/ Bordered Table -->
+
+{% endblock %}

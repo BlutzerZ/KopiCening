@@ -26,14 +26,11 @@ def cart():
             "id": request.form['fid'],
             "img": request.form['fimg'],
             "title": request.form['ftitle'],
-            "warna": request.form['fwarna'], # add me
-            "size": request.form['fsize'], # add me
             "jumlah": request.form['fjumlah'],
             "harga": request.form['fharga'],
             "total": int(request.form['fjumlah']) * int(request.form['fharga']),
         })
         session['keranjang'] = cart
-        print(session['keranjang'])
         return redirect(url_for('cart'))
     else:
         items = session.get('keranjang', [])
@@ -94,8 +91,6 @@ def checkout_success():
         for cart in carts:
             db_item = OrderItemModels(
                 title=cart['title'],
-                color=cart['warna'],
-                size=cart['size'],
                 price=cart['harga'],
                 jumlah=cart['jumlah'],
                 total=cart['total'],
@@ -104,8 +99,8 @@ def checkout_success():
 
             db.session.add(db_item)
 
-            pStock = ProductStockModels.query.filter_by(productID=cart['id']).first()
-            pStock.productTotalStock = int(pStock.productTotalStock) - int(cart['jumlah'])
+            product = ProductModels.query.filter_by(id=cart['id']).first()
+            product.stock = int(product.stock) - int(cart['jumlah'])
             print(f"delete id {cart['id']} mined {cart['jumlah']}")
         
         db.session.commit()

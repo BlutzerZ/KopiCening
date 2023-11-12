@@ -12,3 +12,5 @@ migrate = Migrate(app, db)
 app.secret_key = "89123y4uqh9e8hdawhd8912e"
 
 from routes.customer import *
+from routes.admin import *
+from routes.auth import *

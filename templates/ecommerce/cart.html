@@ -36,55 +36,42 @@
 							</tr>
 						</thead>
 						<tbody>
+							{% set totCO = namespace(value=0) %}
+							{% for item in items %}
 							<tr class="text-center">
-								<td class="product-remove"><a href="#"><span class="icon-close"></span></a></td>
 
+								<form action="/delete-cart/{{ item.id }}" method="post">
+									<td class="product-remove"><button class="btn btn-outline-primary" type="submit"
+											href="#"><span class="icon-close"></span></button></td>
+								</form>
 								<td class="image-prod">
-									<div class="img"
-										style="background-image:url({{ url_for('static', filename='images/menu-2.jpg') }});">
+									<div class="img" style="background-image:url({{ item['img'] }});">
 									</div>
 								</td>
 
 								<td class="product-name">
-									<h3>Creamy Latte Coffee</h3>
+									<h3>{{ item['title'] }}</h3>
 									<p>Far far away, behind the word mountains, far from the countries</p>
 								</td>
 
-								<td class="price">$4.90</td>
+								<td class="price" id="harga-{{ item.id }}">{{ item['harga'] }}</td>
 
-								<td class="quantity">
+								<td class=" quantity">
 									<div class="input-group mb-3">
-										<input type="text" name="quantity" class="quantity form-control input-number"
-											value="1" min="1" max="100">
+										<button onclick="updateTotal('-', '{{ item.id }}' )" type="button"
+											class="btn btn-primary btn-outline-primary py-2 px-4 rounded-l-full">-</button>
+										<span class="form-control py-2 px-4" id="product-qty-{{ item.id }}">{{
+											item['jumlah']
+											}}</span>
+										<button onclick="updateTotal('+', '{{ item.id }}')" type="button"
+											class="btn btn-primary btn-outline-primary py-2 px-4 rounded-r-full">+</button>
 									</div>
 								</td>
 
-								<td class="total">$4.90</td>
+								<td class="total cart-item-total" id="tharga-{{ item.id }}">{{ item['total'] }}</td>
+								{% set totCO.value = totCO.value + item['total'] %}
 							</tr><!-- END TR-->
-
-							<tr class="text-center">
-								<td class="product-remove"><a href="#"><span class="icon-close"></span></a></td>
-
-								<td class="image-prod">
-									<div class="img" style="background-image:url(images/dish-2.jpg);"></div>
-								</td>
-
-								<td class="product-name">
-									<h3>Grilled Ribs Beef</h3>
-									<p>Far far away, behind the word mountains, far from the countries</p>
-								</td>
-
-								<td class="price">$15.70</td>
-
-								<td class="quantity">
-									<div class="input-group mb-3">
-										<input type="text" name="quantity" class="quantity form-control input-number"
-											value="1" min="1" max="100">
-									</div>
-								</td>
-
-								<td class="total">$15.70</td>
-							</tr><!-- END TR-->
+							{% endfor %}
 						</tbody>
 					</table>
 				</div>
@@ -96,26 +83,71 @@
 					<h3>Cart Totals</h3>
 					<p class="d-flex">
 						<span>Subtotal</span>
-						<span>$20.60</span>
+						<span id="totalPriceShow">Rp. </span>
 					</p>
 					<p class="d-flex">
 						<span>Delivery</span>
-						<span>$0.00</span>
-					</p>
-					<p class="d-flex">
-						<span>Discount</span>
-						<span>$3.00</span>
+						<span>Free</span>
 					</p>
 					<hr>
 					<p class="d-flex total-price">
 						<span>Total</span>
-						<span>$17.60</span>
+						<span id="totalPriceShow2">$17.60</span>
 					</p>
 				</div>
-				<p class="text-center"><a href="checkout.html" class="btn btn-primary py-3 px-4">Proceed to Checkout</a>
-				</p>
+				<form action="/checkout" method="POST">
+					<input name="ftotal" id="totalPrice" type="hidden" value="0">
+
+					<p class="text-center"><input type="submit" class="btn btn-primary py-3 px-4">Proceed to
+						Checkout</a>
+					</p>
+				</form>
 			</div>
 		</div>
 	</div>
 </section>
+<script>
+	console.log("test")
+	cartItemTotals = document.querySelectorAll(".cart-item-total");
+	console.log(cartItemTotals.innerHTML)
+	total = 0;
+	cartItemTotals.forEach(function (item) {
+		total += parseInt(item.innerHTML)
+	});
+	// console.log(total);
+	totalPrice = document.getElementById("totalPrice");
+	totalPrice.value = total;
+	document.getElementById("totalPriceShow").innerHTML = "Rp. " + total;
+	document.getElementById("totalPriceShow2").innerHTML = "Rp. " + total;
+
+	function updateTotal(method, ID) {
+		totalNow = document.getElementById("product-qty-" + ID).innerHTML;
+		if (method == "+") {
+			total = document.getElementById("product-qty-" + ID);
+			total.innerHTML = parseInt(totalNow) + 1;
+		} else {
+			if (totalNow != "1") {
+				total = document.getElementById("product-qty-" + ID);
+				total.innerHTML = parseInt(totalNow) - 1;
+			}
+		}
+		totalHarga = document.getElementById("tharga-" + ID);
+		harga = document.getElementById("harga-" + ID).innerHTML;
+		totalHarga.innerHTML = parseInt(total.innerHTML) * parseInt(harga)
+		// console.log(parseInt(total.innerHTML),parseInt(harga))
+
+		console.log("test")
+		cartItemTotals = document.querySelectorAll(".cart-item-total");
+		total = 0;
+		cartItemTotals.forEach(function (item) {
+			// console.log(item.innerHTML)
+			total += parseInt(item.innerHTML)
+		});
+		console.log(total);
+		totalPrice = document.getElementById("totalPrice");
+		totalPrice.value = total;
+		document.getElementById("totalPriceShow").innerHTML = "Rp. " + total;
+		document.getElementById("totalPriceShow2").innerHTML = "Rp. " + total;
+	}
+</script>
 {% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'dashboard/layout/base.html' %}
+
+{% block content %}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="py-3 mb-4"><span class="text-muted fw-light">Dashboard /</span> Kas</h4>
+
+    <!-- Bordered Table -->
+    <div class="card">
+        <h5 class="card-header">Laporan Arus Kas</h5>
+        <div class="card-body">
+            <p class="text-end fw-bold">Total Laporan Arus kas: {{ total }}</p>
+            <div class="table-responsive text-nowrap">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Tanggal</th>
+                            <th>Ref</th>
+                            <th>Keterangan</th>
+                            <th>Jumlah</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ saldoAwal['date'] }}</td>
+                            <td>{{ saldoAwal['ref'] }}</td>
+                            <td>{{ saldoAwal['keterangan'] }}</td>
+                            <td>{{ saldoAwal['amount'] }}</td>
+                        </tr>
+                        {% for tr in kasFlow %}
+                        <tr>
+                            <td>{{ tr['date'] }}</td>
+                            <td>{{ tr['ref'] }}</td>
+                            <td>{{ tr['keterangan'] }}</td>
+                            <td>{{ tr['amount'] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/ Bordered Table -->
+
+{% endblock %}
