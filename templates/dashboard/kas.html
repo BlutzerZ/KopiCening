@@ -9,7 +9,7 @@
     <div class="card">
         <h5 class="card-header">{{ judul }}</h5>
         <div class="card-body">
-            <p class="text-end fw-bold">Total {{ judul }}: {{ total }}</p>
+            <p class="text-end fw-bold">Total {{ judul }}: Rp. {{ total|ribuan }}</p>
             <div class="table-responsive text-nowrap">
                 <table class="table table-bordered">
                     <thead>
@@ -25,14 +25,14 @@
                             <td>{{ saldoAwal['date'] }}</td>
                             <td>{{ saldoAwal['ref'] }}</td>
                             <td>{{ saldoAwal['keterangan'] }}</td>
-                            <td>{{ saldoAwal['amount'] }}</td>
+                            <td>{{ saldoAwal['amount']|ribuan }}</td>
                         </tr>
                         {% for tr in kasFlow %}
                         <tr>
                             <td>{{ tr['date'] }}</td>
                             <td>{{ tr['ref'] }}</td>
                             <td>{{ tr['keterangan'] }}</td>
-                            <td>{{ tr['amount'] }}</td>
+                            <td>{{ tr['amount']|ribuan }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>

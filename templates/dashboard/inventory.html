@@ -9,7 +9,7 @@
     <div class="card">
         <h5 class="card-header">Inventory</h5>
         <div class="card-body">
-            <p class="text-end fw-bold">Total Inventory: {{ tot }}</p>
+            <p class="text-end fw-bold">Total Inventory: Rp. {{ tot|ribuan }}</p>
             <div class="table-responsive text-nowrap">
                 <table class="table table-bordered">
                     <thead>
@@ -26,9 +26,9 @@
                         <tr>
                             <td>{{ p.title }}</td>
                             <td>{{ p.stock }}</td>
-                            <td>{{ p.priceBase }}</td>
-                            <td>{{ p.price }}</td>
-                            <td>{{ p.priceBase * p.stock }}</td>
+                            <td>{{ p.priceBase|ribuan }}</td>
+                            <td>{{ p.price|ribuan }}</td>
+                            <td>{{ (p.priceBase * p.stock)|ribuan }}</td>
                             <td>
                                 <div class="col-lg-4 col-md-6">
                                     <!-- Button trigger modal -->
@@ -100,7 +100,7 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td class="fw-bold">{{ tot }}</td>
+                <td class="fw-bold">{{ tot|ribuan }}</td>
             </tr>
             </tbody>
             </table>

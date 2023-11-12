@@ -20,7 +20,7 @@
                         </tr>
                         <tr>
                             <td>Penjualan</td>
-                            <td>Rp. {{ details['penjualan'] }}</td>
+                            <td>Rp. {{ details['penjualan']|ribuan }}</td>
                             <td></td>
                             <td></td>
                         </tr>
@@ -40,7 +40,7 @@
                             <td>Penjualan Bersih</td>
                             <td></td>
                             <td></td>
-                            <td>Rp. {{ details['penjualanBersih'] }}</td>
+                            <td>Rp. {{ details['penjualanBersih']|ribuan }}</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -57,56 +57,56 @@
                         <tr>
                             <td>Persediaan Barang Dagang Awal</td>
                             <td></td>
-                            <td>Rp. {{ details['persediaanBarangDagang'] }}</td>
+                            <td>Rp. {{ details['persediaanBarangDagang']|ribuan }}</td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>Pembelian</td>
-                            <td>Rp. {{ details['pembelian'] }}</td>
+                            <td>Rp. {{ details['pembelian']|ribuan }}</td>
                             <td></td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>Retur Pembelian</td>
-                            <td>Rp. {{ details['returPembelian'] }}</td>
+                            <td>Rp. {{ details['returPembelian']|ribuan }}</td>
                             <td></td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>Potongan Pembelian</td>
-                            <td>Rp. {{ details['potonganPembelian'] }}</td>
+                            <td>Rp. {{ details['potonganPembelian']|ribuan }}</td>
                             <td></td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>Harga Pokok Pembelian</td>
                             <td></td>
-                            <td>Rp. {{ details['hargaPokokPembelian'] }}</td>
+                            <td>Rp. {{ details['hargaPokokPembelian']|ribuan }}</td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>Barang Tersedia Untuk Dijual</td>
                             <td></td>
-                            <td>Rp. {{ details['barangPersediaanUntukDijual'] }}</td>
+                            <td>Rp. {{ details['barangPersediaanUntukDijual']|ribuan }}</td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>Persediaan Barang Dagang Akhir</td>
                             <td></td>
-                            <td>Rp. {{ details['persediaanBarangDagangAkhir'] }}</td>
+                            <td>Rp. {{ details['persediaanBarangDagangAkhir']|ribuan }}</td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>Harga Pokok Penjualan</td>
                             <td></td>
                             <td></td>
-                            <td>Rp. {{ details['hargaPokokPenjualan'] }}</td>
+                            <td>Rp. {{ details['hargaPokokPenjualan']|ribuan }}</td>
                         </tr>
                         <tr>
                             <td>Laba/Rugi Kotor Penjualan</td>
                             <td></td>
                             <td></td>
-                            <td>Rp. {{ details['LabaRugiKotorPenjualan'] }}</td>
+                            <td>Rp. {{ details['LabaRugiKotorPenjualan']|ribuan }}</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -118,13 +118,13 @@
                             <td class="fw-bold">Biaya Usaha</td>
                             <td></td>
                             <td></td>
-                            <td>Rp. {{ details['biayaUsaha'] }}</td>
+                            <td>Rp. {{ details['biayaUsaha']|ribuan }}</td>
                         </tr>
                         <tr>
                             <td class="fw-bold">Laba/Rugi Bersih Sebelum Pajak</td>
                             <td></td>
                             <td></td>
-                            <td>Rp. {{ details['labaRugiSebelumPajak'] }}</td>
+                            <td>Rp. {{ details['labaRugiSebelumPajak']|ribuan }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -146,15 +146,15 @@
                         </tr>
                         <tr>
                             <td>Awal</td>
-                            <td>Rp. {{ details['modalAwal'] }}</td>
+                            <td>Rp. {{ details['modalAwal']|ribuan }}</td>
                         </tr>
                         <tr>
                             <td>Penyesuaian</td>
-                            <td>Rp. {{ details['labaRugiSebelumPajak'] }}</td>
+                            <td>Rp. {{ details['labaRugiSebelumPajak']|ribuan }}</td>
                         </tr>
                         <tr>
-                            <td>Akhir</td>
-                            <td>Rp. {{ details['total'] }}</td>
+                            <td>Total</td>
+                            <td>Rp. {{ details['total']|ribuan}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -171,7 +171,7 @@
                     <tbody>
                         <tr>
                             <td>Laba/Rugi Usaha</td>
-                            <td>Rp. {{ details['labaRugiSebelumPajak'] }}</td>
+                            <td>Rp. {{ details['labaRugiSebelumPajak']|ribuan }}</td>
                         </tr>
                         <tr>
                             <td>Prive</td>

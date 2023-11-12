@@ -68,9 +68,9 @@
                                                                 {% for ti in t.transactionItem %}
                                                                 <tr>
                                                                     <td>{{ ti.title }}</td>
-                                                                    <td>{{ ti.price }}</td>
+                                                                    <td>{{ ti.price|ribuan }}</td>
                                                                     <td>{{ ti.jumlah }}</td>
-                                                                    <td>{{ ti.total }}</td>
+                                                                    <td>{{ ti.total|ribuan }}</td>
                                                                 </tr>
                                                                 {% endfor %}
                                                             </tbody>

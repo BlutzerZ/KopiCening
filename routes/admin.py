@@ -64,6 +64,14 @@ def admin_dashboard():
 
     totalPiutang = saldoAwal['amount']
 
+    akunTransactions = db.session.query(AkunTransactionModels).filter(AkunTransactionModels.akunID == 111).all()
+    for t in akunTransactions:
+        totalPiutang+=t.amount
+    
+    orderTransactions = db.session.query(OrderModels).filter(OrderModels.paidStatus == "no").all()
+    for t in orderTransactions:
+        totalPiutang+=t.total
+
     # persediaan Barang 
     totPersediaan = 0
     products = ProductModels.query.all()
@@ -322,7 +330,7 @@ def dashboard_kas():
         else:
             continue
         # keterangan
-        if t.akunID[0] == "1" or t.akunID[0] == "2" or t.akunID[0] == "4":
+        if t.akunID[0] == "1" or t.akunID[0] == "4":
             kasFlow['keterangan'] = t.keterangan
         else:
             kasFlow['keterangan'] = '-'
@@ -351,7 +359,31 @@ def dashboard_piutang():
 
     total = saldoAwal['amount']
 
-    return  render_template('dashboard/kas.html', judul="Piutang", saldoAwal=saldoAwal, total=total) 
+    transactions = []
+    akunTransactions = db.session.query(AkunTransactionModels).filter(AkunTransactionModels.akunID == 111).all()
+    for t in akunTransactions:
+        transaction = {}
+        transaction['date'] = t.createdAt.strftime('%d %b %Y')
+        transaction['ref'] = "Kas"
+        transaction['keterangan'] = t.keterangan
+        transaction['amount'] = t.amount
+        transactions.append(transaction)
+        total+=t.amount
+    
+    orderTransactions = db.session.query(OrderModels).filter(OrderModels.paidStatus == "no").all()
+    for t in orderTransactions:
+        transaction = {}
+
+        utc_time = datetime.utcfromtimestamp(t.createdAt)
+        jakarta_time = timezone('Asia/Jakarta').localize(utc_time)
+        transaction['date'] = jakarta_time.strftime('%d %b %Y')
+        transaction['ref'] = "Penjualan"
+        transaction['keterangan'] = t.name
+        transaction['amount'] = t.total
+        transactions.append(transaction)
+        total+=t.total
+
+    return  render_template('dashboard/kas.html', judul="Piutang", saldoAwal=saldoAwal, kasFlow=transactions, total=total) 
 
 @app.route("/dashboard/inventory", methods=["GET", "POST"])
 def dashboard_inventory():
@@ -503,7 +535,7 @@ def dashboard_profit():
     
 
         "modalAwal": modalAwal,
-        "total": int(modalAwal) - int(penjualan) - int(totPersediaan) - int(totPembelian) + int(totPersediaan) + totBiaya ,
+        "total": int(modalAwal) + (int(penjualan) - int(totPersediaan) - int(totPembelian) + int(totPersediaan) + totBiaya) ,
     }
 
     return  render_template('dashboard/profit.html', details=details) 

@@ -27,8 +27,8 @@
                             <td>{{ tr.createdAt }}</td>
                             <td>{{ tr.keterangan }}</td>
                             <td>{{ tr.qty }}</td>
-                            <td>{{ tr.price }}</td>
-                            <td>{{ tr.amount }}</td>
+                            <td>{{ tr.price|ribuan }}</td>
+                            <td>{{ tr.amount|ribuan }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>

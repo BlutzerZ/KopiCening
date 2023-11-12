@@ -18,39 +18,39 @@
                         </tr>
                         <tr>
                             <td>Kas</td>
-                            <td>Rp. {{ details['kas'] }}</td>
+                            <td>Rp. {{ details['kas']|ribuan }}</td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>Piutang</td>
-                            <td>Rp. {{ details['piutang'] }}</td>
+                            <td>Rp. {{ details['piutang']|ribuan }}</td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>Persediaan Barang Dagang</td>
-                            <td>Rp. {{ details['piutang'] }}</td>
+                            <td>Rp. {{ details['piutang']|ribuan }}</td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>Perlengkapan</td>
-                            <td>Rp. {{ details['perlengkapan'] }}</td>
+                            <td>Rp. {{ details['perlengkapan']|ribuan }}</td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>Peralatan</td>
-                            <td>Rp. {{ details['peralatan'] }}</td>
+                            <td>Rp. {{ details['peralatan']|ribuan }}</td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>Aset Lain</td>
-                            <td>Rp. {{ details['asetLain'] }}</td>
+                            <td>Rp. {{ details['asetLain']|ribuan }}</td>
                             <td></td>
 
                         </tr>
                         <tr>
                             <td>Jumlah Aktiva</td>
                             <td></td>
-                            <td>Rp. {{ details['jumlahAktiva'] }}</td>
+                            <td>Rp. {{ details['jumlahAktiva']|ribuan }}</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -64,28 +64,28 @@
                         </tr>
                         <tr>
                             <td>Modal</td>
-                            <td>Rp. {{ details['modal'] }}</td>
+                            <td>Rp. {{ details['modal']|ribuan }}</td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>Hutang</td>
-                            <td>Rp. {{ details['hutang'] }}</td>
+                            <td>Rp. {{ details['hutang']|ribuan }}</td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>Pendapatan</td>
-                            <td>Rp. {{ details['pendapatan'] }}</td>
+                            <td></td>
                             <td></td>
                         </tr>
                         <tr>
-                            <td>Profit sekarang</td>
-                            <td>Rp. {{ details['profit'] }}</td>
+                            <td> Profit sekarang</td>
+                            <td>Rp. {{ details['profit']|ribuan }}</td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>Jumlah Pasiva</td>
                             <td></td>
-                            <td>Rp. {{ details['jumlahPasiva'] }}</td>
+                            <td>Rp. {{ details['jumlahPasiva']|ribuan }}</td>
                         </tr>
                     </tbody>
                 </table>

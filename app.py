@@ -6,6 +6,11 @@ app = Flask(__name__)
 app.config.from_object(Config)
 from flask_migrate import Migrate
 
+def ribuan_separator(angka):
+    return '{:,}'.format(int(angka)).replace(',', '.')
+
+app.jinja_env.filters['ribuan'] = ribuan_separator
+
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
