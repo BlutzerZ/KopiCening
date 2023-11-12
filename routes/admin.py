@@ -545,11 +545,22 @@ def dashboard_profit():
 def dashboard_transaction():
     if session["userID"] == None:
         return redirect(url_for("login"))
-    
+
+    tot = {} 
+    tot['penjualan'] = 0   
+    tot['tunai'] = 0   
+    tot['piutang'] = 0   
+
     transactions = db.session.query(OrderModels).join(OrderItemModels).group_by(OrderModels.id).order_by(db.func.count().desc()).all()
-    # convert time
     for transaction in transactions:
+        tot['penjualan'] += int(transaction.total)
+        if transaction.paidStatus == 'no':
+            tot['piutang'] += int(transaction.total)
+        else:
+            tot['tunai'] += int(transaction.total)
+
+
         utc_time = datetime.utcfromtimestamp(transaction.createdAt)
         jakarta_time = timezone('Asia/Jakarta').localize(utc_time)
         transaction.createdAt = jakarta_time.strftime('%d %b %Y')
-    return render_template("dashboard/transactions.html", transactions=transactions)    
+    return render_template("dashboard/transactions.html", transactions=transactions, tot=tot)    

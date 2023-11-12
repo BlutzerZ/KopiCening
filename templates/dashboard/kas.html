@@ -7,9 +7,21 @@
 
     <!-- Bordered Table -->
     <div class="card">
-        <h5 class="card-header">{{ judul }}</h5>
         <div class="card-body">
-            <p class="text-end fw-bold">Total {{ judul }}: Rp. {{ total|ribuan }}</p>
+            <div class="table-responsive text-nowrap">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td class="text-center" colspan="3">
+                                <h4>{{ judul }}</h2>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">Total {{ judul }} <br> Rp. {{ total|ribuan }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <div class="table-responsive text-nowrap">
                 <table class="table table-bordered">
                     <thead>
