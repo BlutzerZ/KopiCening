@@ -7,9 +7,21 @@
 
     <!-- Bordered Table -->
     <div class="card">
-        <h5 class="card-header">{{ judul }}</h5>
         <div class="card-body">
-            <p class="text-end fw-bold">Total {{ judul }}: {{ total }}</p>
+            <div class="table-responsive text-nowrap">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td class="text-center" colspan="3">
+                                <h4>{{ judul }}</h2>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">Total {{ judul }} <br> Rp. {{ total|ribuan }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <div class="table-responsive text-nowrap">
                 <table class="table table-bordered">
                     <thead>
@@ -19,16 +31,73 @@
                             <th>Kuantitas</th>
                             <th>Harga</th>
                             <th>Total Harga</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for tr in transactions %}
                         <tr>
-                            <td>{{ tr.createdAt }}</td>
+                            <td>{{ tr.createdAt|tanggal }}</td>
                             <td>{{ tr.keterangan }}</td>
                             <td>{{ tr.qty }}</td>
                             <td>{{ tr.price|ribuan }}</td>
                             <td>{{ tr.amount|ribuan }}</td>
+                            <td>
+                                <div class="col-lg-4 col-md-6">
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#basicModal{{ tr.id }}">
+                                        Edit
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="basicModal{{ tr.id }}" tabindex="-1" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel1">Edit {{
+                                                        tr.keterangan
+                                                        }}
+                                                    </h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <form action="/dashboard/pembelian/edit/{{ judul }}" method="POST">
+                                                    <input name="id" type="hidden" value="{{ tr.id }}">
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col mb-3">
+                                                                <label for="nameBasic"
+                                                                    class="form-label">Kuantitas</label>
+                                                                <input name="qty" type="text" id="kuantitas"
+                                                                    class="form-control" placeholder="0"
+                                                                    value="{{ tr.qty }}" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col mb-3">
+                                                                <label for="nameBasic" class="form-label">Harga
+                                                                </label>
+                                                                <input name="hrg" type="text" id="hrg"
+                                                                    class="form-control" placeholder="0"
+                                                                    value="{{ tr.price }}" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-outline-secondary"
+                                                            data-bs-dismiss="modal">
+                                                            Close
+                                                        </button>
+                                                        <button type="submit" class="btn btn-primary">Save
+                                                            changes</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
                         {% endfor %}
                     </tbody>

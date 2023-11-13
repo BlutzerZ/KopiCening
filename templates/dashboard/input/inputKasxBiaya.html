@@ -7,7 +7,7 @@
     <div class="col-12">
         <div class="card mb-4">
             <form action="" method="POST">
-                <h5 class="card-header">Form Controls</h5>
+                <h5 class="card-header">Tambah {{ details['pageName'] }}</h5>
                 <div class="card-body">
                     <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Tanggal</label>
@@ -47,6 +47,21 @@
         <div class="card-body">
             <div class="table-responsive text-nowrap">
                 <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td class="text-center" colspan="3">
+                                <h4>{{ details['pageName'] }}</h2>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">Total {{ details['pageName'] }} <br> Rp. {{ details['tot']|ribuan }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-responsive text-nowrap">
+                <table class="table table-bordered">
                     <thead>
                         <tr>
                             <th>Tanggal</th>
@@ -61,12 +76,12 @@
                     <tbody>
                         {% for transaction in details['transactions'] %}
                         <tr>
-                            <td>{{ transaction.createdAt }}</td>
+                            <td>{{ transaction.createdAt|tanggal }}</td>
                             <td>{{ transaction.akunName }}</td>
                             {% if details['pageName'] != "Biaya" %}
                             <td>{{ transaction.keterangan }}</td>
                             {% endif %}
-                            <td>{{ transaction.amount }}</td>
+                            <td>{{ transaction.amount|ribuan }}</td>
                             <td>
                                 <div class="dropdown">
                                     {% if details['pageName'] != "Biaya" %}

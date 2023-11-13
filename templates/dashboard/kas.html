@@ -41,7 +41,7 @@
                         </tr>
                         {% for tr in kasFlow %}
                         <tr>
-                            <td>{{ tr['date'] }}</td>
+                            <td>{{ tr['date']|tanggal }}</td>
                             <td>{{ tr['ref'] }}</td>
                             <td>{{ tr['keterangan'] }}</td>
                             <td>{{ tr['amount']|ribuan }}</td>

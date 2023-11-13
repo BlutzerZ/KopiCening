@@ -17,9 +17,9 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>Total Penjualan <br> Rp. {{ tot['penjualan'] }}</td>
-                            <td>Tunai <br> Rp. {{ tot['tunai'] }}</td>
-                            <td>Piutang <br> Rp. {{ tot['piutang'] }}</td>
+                            <td>Total Penjualan <br> Rp. {{ tot['penjualan']|ribuan }}</td>
+                            <td>Tunai <br> Rp. {{ tot['tunai']|ribuan }}</td>
+                            <td>Piutang <br> Rp. {{ tot['piutang']|ribuan }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -46,7 +46,7 @@
                             <td>{{ t.name }}</td>
                             <td>{{ t.address }}</td>
                             <td>{{ t.phone }}</td>
-                            <td>Rp. {{ t.total }}</td>
+                            <td>Rp. {{ t.total|ribuan }}</td>
                             <td>
                                 {% if t.paidStatus == 'no' %}
                                 Utang

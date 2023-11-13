@@ -7,9 +7,21 @@
 
     <!-- Bordered Table -->
     <div class="card">
-        <h5 class="card-header">Inventory</h5>
         <div class="card-body">
-            <p class="text-end fw-bold">Total Inventory: Rp. {{ tot|ribuan }}</p>
+            <div class="table-responsive text-nowrap">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td class="text-center" colspan="3">
+                                <h4>Inventory</h2>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">Total Inventory <br> Rp. {{ tot|ribuan }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <div class="table-responsive text-nowrap">
                 <table class="table table-bordered">
                     <thead>
@@ -19,6 +31,7 @@
                             <th>Harga Awal</th>
                             <th>Harga Jual</th>
                             <th>Jumlah</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -91,22 +104,19 @@
                                         </div>
                                     </div>
                                 </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                            <td class="fw-bold" colspan="4">TOTAL</td>
+                            <td class="fw-bold">Rp. {{ tot|ribuan }}</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            </td>
-            </tr>
-            {% endfor %}
-            <tr>
-                <td class="fw-bold">TOTAL</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td class="fw-bold">{{ tot|ribuan }}</td>
-            </tr>
-            </tbody>
-            </table>
         </div>
     </div>
-</div>
 </div>
 <!--/ Bordered Table -->
 

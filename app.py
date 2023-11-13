@@ -11,6 +11,16 @@ def ribuan_separator(angka):
 
 app.jinja_env.filters['ribuan'] = ribuan_separator
 
+from datetime import datetime
+def tanggal_convertor(tanggal):
+    try:
+        return datetime.strptime(str(tanggal)[0:10], '%Y-%m-%d').strftime('%d %b %Y')
+    except:
+        return tanggal
+
+app.jinja_env.filters['tanggal'] = tanggal_convertor
+
+
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 

@@ -8,9 +8,23 @@
     <div class="row">
         <!-- Bordered Table -->
         <div class="card col-md-6">
-            <h5 class="card-header">Hutang Suplier</h5>
             <div class="card-body">
-                <p class="text-end fw-bold">Total Hutang Suplier: {{ details['totHutangSuplier'] }}</p>
+                <div class="table-responsive text-nowrap">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="text-center" colspan="3">
+                                    <h4>Hutang Suplier</h2>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Total Hutang Suplier <br> Rp. {{
+                                    details['totHutangSuplier']|ribuan
+                                    }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 <div class="table-responsive text-nowrap">
                     <table class="table table-bordered">
                         <thead>
@@ -24,7 +38,7 @@
                         <tbody>
                             {% for hs in details['hutangSuplier'] %}
                             <tr>
-                                <td>{{ hs.createdAt }}</td>
+                                <td>{{ hs.createdAt|tanggal }}</td>
                                 <td>Kas</td>
                                 <td>{{ hs.keterangan }}</td>
                                 <td>{{ hs.amount|ribuan }}</td>
@@ -37,9 +51,24 @@
         </div>
         <!-- Bordered Table -->
         <div class="card col-md-6">
-            <h5 class="card-header">Hutang Bisnis</h5>
             <div class="card-body">
-                <p class="text-end fw-bold">Total Hutang Bisnis: {{ details['totHutangBisnis'] }}</p>
+                <div class="table-responsive text-nowrap">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="text-center" colspan="3">
+                                    <h4>Hutang Bisnis</h2>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">Total Hutang Bisnis <br> Rp. {{
+                                    details['totHutangBisnis']|ribuan
+                                    }}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 <div class="table-responsive text-nowrap">
                     <table class="table table-bordered">
                         <thead>
@@ -53,10 +82,10 @@
                         <tbody>
                             {% for hb in details['hutangBisnis'] %}
                             <tr>
-                                <td>{{ hb.createdAt }}</td>
+                                <td>{{ hb.createdAt|tanggal }}</td>
                                 <td>Kas</td>
                                 <td>{{ hb.keterangan }}</td>
-                                <td>{{ hb.amount }}</td>
+                                <td>{{ hb.amount|ribuan }}</td>
                             </tr>
                             {% endfor %}
                         </tbody>

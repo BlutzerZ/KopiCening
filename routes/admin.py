@@ -170,8 +170,13 @@ def dashboard_input_kas():
         akuns = db.session.query(AkunModels).filter(AkunModels.id.like('1%')).all()
         transactions = db.session.query(AkunTransactionModels).filter(AkunTransactionModels.akunID.like('1%')).all()
 
+        tot = 0
+        for t in transactions:
+            tot += t.amount
+
         details = {
             'pageName': 'Kas',
+            'tot': tot,
             'akuns': akuns,
             'transactions': transactions,
         }
@@ -206,8 +211,13 @@ def dashboard_input_biaya():
         akuns = db.session.query(AkunModels).filter(AkunModels.id.like('2%')).all()
         transactions = db.session.query(AkunTransactionModels).filter(AkunTransactionModels.akunID.like('2%')).all()
 
+        tot = 0
+        for t in transactions:
+            tot += t.amount
+
         details = {
             'pageName': 'Biaya',
+            'tot': tot,
             'akuns': akuns,
             'transactions': transactions,
         }
@@ -238,19 +248,30 @@ def dashboard_input_pembelian():
         akuns = db.session.query(AkunModels).filter(AkunModels.id.like('3%')).all()
         transactions = db.session.query(AkunTransactionModels).filter(AkunTransactionModels.akunID.like('3%')).all()
 
+        tot = {}
+        tot['pembelian'] = 0
+        tot['tunai'] = 0
+        tot['piutang'] = 0
+        for t in transactions:
+            tot['pembelian']+=t.amount
+            if t.paid == 'yes':
+                tot['tunai']+=t.amount
+            else:
+                tot["piutang"]+=t.amount
 
         details = {
             'pageName': 'Pembelian',
             'akuns': akuns,
             'transactions': transactions,
         }
-        return  render_template('dashboard/input/inputPembelian.html', details=details)
+        return  render_template('dashboard/input/inputPembelian.html', details=details, tot=tot)
     else:
         date = request.form['date']
         akunID = request.form['akunid']
         keterangan = request.form['keterangan']
         qty = request.form['qty']
         price = request.form['price']
+        paid = request.form['paid']
 
         dbItem = AkunTransactionModels(
             createdAt = date,
@@ -260,6 +281,7 @@ def dashboard_input_pembelian():
             qty = qty,
             price = price,
             amount = int(qty)*int(price),
+            paid  = paid,
         )
 
         db.session.add(dbItem)
@@ -376,7 +398,7 @@ def dashboard_piutang():
 
         utc_time = datetime.utcfromtimestamp(t.createdAt)
         jakarta_time = timezone('Asia/Jakarta').localize(utc_time)
-        transaction['date'] = jakarta_time.strftime('%d %b %Y')
+        transaction['date'] = jakarta_time
         transaction['ref'] = "Penjualan"
         transaction['keterangan'] = t.name
         transaction['amount'] = t.total
@@ -453,6 +475,24 @@ def dashboard_aset():
     for t in transactions:
         total += int(t.amount)
     return  render_template('dashboard/perlengkapanxPeralatanxAset.html', judul=judul, transactions=transactions, total=total) 
+
+
+@app.route("/dashboard/pembelian/edit/<tipe>", methods=["POST"])
+def edit_perlengkapan_peralatan_aset(tipe):
+    
+    id = request.form['id']
+    qty = request.form['qty']
+    price = request.form['hrg']
+
+
+    transaction = db.session.query(AkunTransactionModels).get(id)
+    transaction.qty = qty
+    transaction.price = price
+    transaction.amount = int(qty)*int(price)
+    db.session.commit()
+
+    return redirect(url_for("dashboard_"+tipe.lower()))
+
 
 @app.route("/dashboard/hutang")
 def dashboard_hutang():

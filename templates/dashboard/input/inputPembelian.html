@@ -7,7 +7,7 @@
     <div class="col-12">
         <div class="card mb-4">
             <form action="" method="POST">
-                <h5 class="card-header">Form Controls</h5>
+                <h5 class="card-header">Tambah Pembelian</h5>
                 <div class="card-body">
                     <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Tanggal</label>
@@ -38,6 +38,17 @@
                         <input name="price" class="form-control" type="text" id="exampleFormControlReadOnlyInput1"
                             placeholder="0" />
                     </div>
+                    <div class="mb-3">
+                        <div class="form-check mt-3 ">
+                            <input name="paid" class="form-check-input" type="radio" value="yes" id="defaultRadio1"
+                                checked />
+                            <label class="form-check-label" for="defaultRadio1"> Tunai </label>
+                        </div>
+                        <div class="form-check">
+                            <input name="paid" class="form-check-input" type="radio" value="no" id="defaultRadio2" />
+                            <label class="form-check-label" for="defaultRadio2"> Utang </label>
+                        </div>
+                    </div>
                     <button type="submit" class="btn btn-primary">Add</button>
                 </div>
             </form>
@@ -45,8 +56,24 @@
     </div>
     <!-- Bordered Table -->
     <div class="card">
-        <h5 class="card-header">Bordered Table</h5>
         <div class="card-body">
+            <div class="table-responsive text-nowrap">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td class="text-center" colspan="3">
+                                <h4>Total Pembelian</h2>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Total Pembelian <br> Rp. {{ tot['pembelian']|ribuan }}</td>
+                            <td>Tunai <br> Rp. {{ tot['tunai']|ribuan }}</td>
+                            <td>Piutang <br> Rp. {{ tot['piutang']|ribuan }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <br>
             <div class="table-responsive text-nowrap">
                 <table class="table table-bordered">
                     <thead>
@@ -57,18 +84,24 @@
                             <th>Qty</th>
                             <th>Harga</th>
                             <th>Total Harga</th>
+                            <th>Dibayar</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for transaction in details['transactions'] %}
                         <tr>
-                            <td>{{ transaction.createdAt }}</td>
+                            <td>{{ transaction.createdAt|tanggal }}</td>
                             <td>{{ transaction.akunName }}</td>
                             <td>{{ transaction.keterangan }}</td>
                             <td>{{ transaction.qty }}</td>
-                            <td>{{ transaction.price }}</td>
-                            <td>{{ transaction.amount }}</td>
+                            <td>{{ transaction.price|ribuan }}</td>
+                            <td>{{ transaction.amount|ribuan }}</td>
+                            <td>{% if transaction.paid == 'no' %}
+                                Utang
+                                {% else %}
+                                Cash
+                                {% endif %}</td>
                             <td>
                                 <div class="dropdown">
                                     <form action="/dashboard/input-pembelian/delete" method="POST">
