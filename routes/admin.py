@@ -157,7 +157,8 @@ def admin_dashboard():
         "modal": modalAwal,
         "hutang": totHutang,
         "profit": totProfit,
-        "jumlahPasiva": modalAwal+totHutang+totProfit,
+        "newJumlahPasiva": (totalKas + totalPiutang + totPersediaan + totalPerlengkapan + totalPeralatan + totalAset) - abs(totProfit),
+        "jumlahPasiva": abs(totProfit) + (totalKas + totalPiutang + totPersediaan + totalPerlengkapan + totalPeralatan + totalAset) - abs(totProfit),
     }
 
     return  render_template('dashboard/dashboard.html', details=details)
